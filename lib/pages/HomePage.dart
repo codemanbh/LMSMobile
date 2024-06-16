@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var books = [];
-  String server = "http://127.0.0.1:8000";
+  String server = "http://127.0.0.1:8000"; // remove later
 
   void fetchData() async {
     var url = Uri.parse('$server/api/books');
@@ -30,27 +30,49 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Widget bookList() {
+    List<Widget> mapBookList() {
+      return books
+          .map(
+            (b) => BookCard(
+                book: Book(
+                    title: b['title'],
+                    image_url: b['image_url'],
+                    description: b['description'])),
+          )
+          .toList();
+    }
+
+    return Container(
+      width: double.infinity,
+      child: Column(
+        // backgroundColor:Colors.red,
+        children: mapBookList(),
+      ),
+    );
+  }
+
+  Widget loudButton() {
+    return TextButton(
+      child: Text("Loud Books"),
+      onPressed: () {
+        fetchData();
+        print(books);
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Home"),
-        books.isEmpty
-            ? Text('louding')
-            : Column(
-                children: books
-                    .map((b) => BookCard(
-                        book:
-                            Book(title: b['title'], image_url: b['image_url'])))
-                    .toList(),
-              ),
-        TextButton(
-          child: Text("huasnda"),
-          onPressed: () {
-            fetchData();
-            print(books);
-          },
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [books.isEmpty ? Text('louding') : bookList()],
+      ),
     );
   }
 }

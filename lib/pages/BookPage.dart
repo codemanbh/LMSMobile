@@ -8,8 +8,15 @@ class BookPage extends StatefulWidget {
 }
 
 class _BookPageState extends State<BookPage> {
+  void returnPage() {
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Text("Book page");
+    return Column(children: [
+      Text("Book page"),
+      TextButton(onPressed: returnPage, child: Text("return"))
+    ]);
   }
 }
