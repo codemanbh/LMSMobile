@@ -15,8 +15,8 @@ class _BookPageState extends State<BookPage> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text("Book page"),
-      TextButton(onPressed: returnPage, child: Text("return"))
+      const Text("Book page"),
+      TextButton(onPressed: returnPage, child: const Text("return"))
     ]);
   }
 }

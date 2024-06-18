@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Nav extends StatefulWidget {
   // ValueChanged<int>  = (){} ;
@@ -7,8 +6,7 @@ class Nav extends StatefulWidget {
   final int currentIndex;
   final ValueChanged<int> navigate;
 
-  const Nav({required this.navigate, required this.currentIndex, Key? key})
-      : super(key: key);
+  const Nav({required this.navigate, required this.currentIndex, super.key});
 
   // final int currentIndex;
   // final ValueChanged<int> navigate;
@@ -30,7 +28,7 @@ class _NavState extends State<Nav> {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-        destinations: [
+        destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile')
         ],

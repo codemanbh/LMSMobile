@@ -9,17 +9,17 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   TextStyle labelStyle() {
-    return TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+    return const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   }
 
   TextStyle valueStyle() {
-    return TextStyle(fontSize: 21, fontWeight: FontWeight.normal);
+    return const TextStyle(fontSize: 21, fontWeight: FontWeight.normal);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
           child: CircleAvatar(
@@ -37,7 +37,7 @@ class _ProfileState extends State<Profile> {
           "John Doe",
           style: valueStyle(),
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         Text(

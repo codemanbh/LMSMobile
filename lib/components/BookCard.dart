@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:library_managment_system_mobile/server/serverInfo.dart';
 import '../classes/Book.dart';
 import '../pages/BookPage.dart';
 
 class BookCard extends StatefulWidget {
   final Book book;
-  const BookCard({required this.book, Key? key}) : super(key: key);
+  const BookCard({required this.book, super.key});
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -14,7 +14,7 @@ class BookCard extends StatefulWidget {
 class _BookCardState extends State<BookCard> {
   void goToBook() {
     Navigator.push(
-        context, (MaterialPageRoute(builder: (context) => BookPage())));
+        context, (MaterialPageRoute(builder: (context) => const BookPage())));
   }
 
   String server = "http://127.0.0.1:8000/storage/"; // remove later
@@ -22,7 +22,7 @@ class _BookCardState extends State<BookCard> {
   Widget Img() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: Image.network(server + widget.book.image_url,
+      child: Image.network("${SERVER_LINK}/${widget.book.image_url}",
           width: 150,
           // height: 200,
 
@@ -32,7 +32,7 @@ class _BookCardState extends State<BookCard> {
 
   Widget LeftSection() {
     TextStyle titleStyle() {
-      return TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+      return const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
     }
 
     return Flexible(
@@ -41,7 +41,7 @@ class _BookCardState extends State<BookCard> {
           // constraints: BoxConstraints.expand(),
           // color: Colors.red,
           // height: double.infinity,
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           // color: Colors.red,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,7 +60,7 @@ class _BookCardState extends State<BookCard> {
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
               ),
-              IconButton(onPressed: goToBook, icon: Icon(Icons.book))
+              IconButton(onPressed: goToBook, icon: const Icon(Icons.book))
             ],
           ),
         ),
@@ -71,11 +71,11 @@ class _BookCardState extends State<BookCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Card(
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Img(), LeftSection()],

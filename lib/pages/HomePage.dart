@@ -1,11 +1,10 @@
-import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../components/BookCard.dart';
 import '../classes/Book.dart';
+import '../server/serverInfo.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,10 +15,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var books = [];
-  String server = "http://127.0.0.1:8000"; // remove later
+  // String SERVER_LINK = "http://127.0.0.1:8000"; // remove later
 
   void fetchData() async {
-    var url = Uri.parse('$server/api/books');
+    var url = Uri.parse('$SERVER_LINK/api/books');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -48,7 +47,7 @@ class _HomeState extends State<Home> {
           .toList();
     }
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         // backgroundColor:Colors.red,
@@ -59,7 +58,7 @@ class _HomeState extends State<Home> {
 
   Widget loudButton() {
     return TextButton(
-      child: Text("Loud Books"),
+      child: const Text("Loud Books"),
       onPressed: () {
         fetchData();
         print(books);
@@ -71,7 +70,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [books.isEmpty ? Text('louding') : bookList()],
+        children: [books.isEmpty ? const Text('louding') : bookList()],
       ),
     );
   }

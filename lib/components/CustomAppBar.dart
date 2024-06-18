@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -9,7 +8,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<CustomAppBar> createState() => _CustomAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {

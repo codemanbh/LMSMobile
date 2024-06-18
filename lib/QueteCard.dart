@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'Quote.dart';
 
 class QueteCard extends StatefulWidget {
   final Quote quote;
   final VoidCallback onDelete;
 
-  QueteCard({Key? key, required this.quote, required this.onDelete})
-      : super(key: key);
+  const QueteCard({super.key, required this.quote, required this.onDelete});
 
   @override
   State<QueteCard> createState() => _QueteCardState();
@@ -26,7 +23,7 @@ class _QueteCardState extends State<QueteCard> {
         ),
         child: Container(
           decoration: BoxDecoration(border: Border.all()),
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: Row(
             children: [
               Checkbox(
@@ -41,7 +38,7 @@ class _QueteCardState extends State<QueteCard> {
                 onPressed: () {
                   widget.onDelete();
                 },
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
               ),
               Expanded(
                 child: Column(
@@ -52,14 +49,14 @@ class _QueteCardState extends State<QueteCard> {
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,
                       maxLines: 2,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "- " + widget.quote.auther,
-                      style: TextStyle(
+                      "- ${widget.quote.auther}",
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                       ),

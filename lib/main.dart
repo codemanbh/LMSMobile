@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'Quote.dart';
-import 'QueteCard.dart';
+
+// Classes
+// Pages
 import 'pages/ProfilePage.dart';
 import 'pages/HomePage.dart';
 import 'pages/BookPage.dart';
 import 'pages/LoginPage.dart';
+
+// Components
 import 'components/CustomAppBar.dart';
 import 'components/Nav.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: App(),
+    home: const App(),
     theme: ThemeData.dark(),
   ));
+
+  // doWhenWindowReady(() {
+  //   const initialSize = Size(600, 450);
+  //   appWindow.minSize = initialSize;
+  //   // appWindow.size = initialSize;
+  //   appWindow.alignment = Alignment.center;
+  //   appWindow.show();
+  // });
 }
 
 class App extends StatefulWidget {
@@ -25,17 +35,17 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   int pageIndex = 0;
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
 
-  List<Widget> _pages = [
-    Home(),
-    Profile(),
-    BookPage(),
-    LoginPage(),
+  final List<Widget> _pages = [
+    const Home(),
+    const Profile(),
+    const BookPage(),
+    const LoginPage(),
 
     // ThirdPage(),
   ];
-  var _titles = ["Home", "Profile", "Book", "Login"];
+  final _titles = ["Home", "Profile", "Book", "Login"];
 
   void navigate(int newIndex) {
     setState(() {
@@ -49,14 +59,17 @@ class _AppState extends State<App> {
     return Scaffold(
       appBar: CustomAppBar(title: _titles[pageIndex]),
       body: customPageView(),
+      // WindowTitleBarBox(child: MoveWindow()),
+
       bottomNavigationBar: Nav(currentIndex: pageIndex, navigate: navigate),
     );
   }
 
   Widget customPageView() {
     return PageView(
-        controller: _pageController,
-        children: _pages,
-        allowImplicitScrolling: true);
+      controller: _pageController,
+      children: _pages,
+      // allowImplicitScrolling: true
+    );
   }
 }
