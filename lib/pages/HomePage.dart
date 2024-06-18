@@ -14,7 +14,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var books = [];
-  // String SERVER_LINK = "http://192.168.56.1:8000"; // remove later
 
   void fetchData() async {
     try {

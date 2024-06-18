@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../context/provider.dart';
+import 'package:provider/provider.dart';
 
 class BookPage extends StatefulWidget {
   const BookPage({super.key});
@@ -14,9 +16,11 @@ class _BookPageState extends State<BookPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const Text("Book page"),
-      TextButton(onPressed: returnPage, child: const Text("return"))
-    ]);
+    return Consumer<ProviderModel>(
+      builder: (context, value, child) => Column(children: [
+        const Text("Book page"),
+        TextButton(onPressed: value.toToPrevPage, child: const Text("return"))
+      ]),
+    );
   }
 }
