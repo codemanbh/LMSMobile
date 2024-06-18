@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:library_managment_system_mobile/server/serverInfo.dart';
 import '../classes/Book.dart';
 import '../pages/BookPage.dart';
+import '../server/serverInfo.dart';
 
 class BookCard extends StatefulWidget {
   final Book book;
@@ -17,12 +18,14 @@ class _BookCardState extends State<BookCard> {
         context, (MaterialPageRoute(builder: (context) => const BookPage())));
   }
 
-  String server = "http://127.0.0.1:8000/storage/"; // remove later
+  // String server = "http://127.0.0.1:8000/storage/"; // remove later
 
   Widget Img() {
+    String fullImgLink = "$SERVER_LINK/storage/${widget.book.image_url}";
+    print(fullImgLink);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: Image.network("${SERVER_LINK}/${widget.book.image_url}",
+      child: Image.network(fullImgLink,
           width: 150,
           // height: 200,
 

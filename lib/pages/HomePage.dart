@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,17 +14,22 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var books = [];
-  // String SERVER_LINK = "http://127.0.0.1:8000"; // remove later
+  // String SERVER_LINK = "http://192.168.56.1:8000"; // remove later
 
   void fetchData() async {
-    var url = Uri.parse('$SERVER_LINK/api/books');
-    var response = await http.get(url);
+    try {
+      var url = Uri.parse('$SERVER_LINK/api/books');
+      var response = await http.get(url);
+      print(response.body);
 
-    if (response.statusCode == 200) {
-      setState(() {
-        books = jsonDecode(response.body);
-      });
-    } else {}
+      if (response.statusCode == 200) {
+        setState(() {
+          books = jsonDecode(response.body);
+        });
+      } else {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -61,7 +65,7 @@ class _HomeState extends State<Home> {
       child: const Text("Loud Books"),
       onPressed: () {
         fetchData();
-        print(books);
+        // print(books);
       },
     );
   }
@@ -70,7 +74,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [books.isEmpty ? const Text('louding') : bookList()],
+        children: [books.isEmpty ? const Text('asfasd') : bookList()],
       ),
     );
   }
