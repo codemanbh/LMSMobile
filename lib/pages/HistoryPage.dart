@@ -20,7 +20,25 @@ class _HistoryPageState extends State<HistoryPage> {
               child: Card(
                 elevation: 10,
                 child: Container(
-                    padding: EdgeInsets.all(20), child: Text(i.toString())),
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Book num: " + (i + 1).toString(),
+                          style: TextStyle(
+                              fontSize: 23, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Due date: ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          "Days left: " + ((i + 3) % 5).toString(),
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    )),
               ),
             ));
     return Scaffold(

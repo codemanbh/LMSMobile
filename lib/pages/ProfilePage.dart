@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/Nav.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -14,7 +15,7 @@ class _ProfileState extends State<Profile> {
   }
 
   TextStyle valueStyle() {
-    return const TextStyle(fontSize: 21, fontWeight: FontWeight.normal);
+    return TextStyle(fontSize: 21, fontWeight: FontWeight.normal);
   }
 
   Future<void> _handleRefresh() async {

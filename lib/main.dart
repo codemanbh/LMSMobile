@@ -1,6 +1,7 @@
 // import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Classes
 // Pages
@@ -9,16 +10,10 @@ import 'package:flutter/material.dart';
 import 'components/CustomAppBar.dart';
 import 'components/Nav.dart';
 import 'components/Pages.dart';
+import 'context/Theme.dart';
 
 void main() {
-  runApp(MaterialApp(
-    // home: const App(),
-    // initialRoute: '/books',
-    debugShowCheckedModeBanner: false,
-    home: App(),
-    routes: routes,
-    theme: ThemeData.dark(),
-  ));
+  runApp(App());
 }
 
 class App extends StatefulWidget {
@@ -31,8 +26,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   int _pageIndex = 0;
 
-  // final List<Widget> _pages = [Home(), Profile()];
-
   void setPageIndex(int newIndex) {
     setState(() {
       _pageIndex = newIndex;
@@ -41,10 +34,20 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[_pageIndex],
-      bottomNavigationBar:
-          Nav(pageIndex: _pageIndex, setPageIndex: setPageIndex),
-    );
+    Widget _buildAppScaffold() {
+      return Scaffold(
+        body: pages[_pageIndex],
+        bottomNavigationBar:
+            Nav(pageIndex: _pageIndex, setPageIndex: setPageIndex),
+      );
+    }
+
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: _buildAppScaffold(),
+        routes: routes,
+        themeMode: ThemeMode.dark,
+        darkTheme: darkTheme(),
+        theme: lightTheme());
   }
 }

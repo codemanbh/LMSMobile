@@ -1,10 +1,10 @@
 import 'dart:convert';
+// import 'dart:html';
 // import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import '../server/serverInfo.dart';
 import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -55,61 +55,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login() async {
-    try {
-      final Dio dio = Dio(BaseOptions(
-        // baseUrl: SERVER_LINK,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      ));
+    print('submitted');
+    Uri url = Uri.parse('$SERVER_LINK/api/books');
+    var response = await http.get(url);
 
-      // Retrieve CSRF token
-      final csrfResponse = await dio.get('$SERVER_LINK/api/token');
-      final csrfToken = csrfResponse.data['csrf_token'];
-      final cookies = csrfResponse.headers['set-cookie'];
-      // Set CSRF token in headers for subsequent requests
-      dio.options.headers['X-CSRF-TOKEN'] = csrfToken;
-      dio.options.headers['Cookie'] = cookies;
-      // Prepare login data
-      final Map<String, dynamic> loginData = {
-        'email': _email,
-        'password': _password,
-      };
-
-      // Make POST request to login endpoint
-      final response = await dio.post(
-        '$SERVER_LINK/api/login',
-        data: jsonEncode(loginData),
-      );
-
-      // Handle response
-      print(response.data); // Print the response data for debugging
-
-      // Example of handling state in a Flutter widget
-      // Replace with your actual state management approach
-      setState(() {
-        fstate = "sent";
-      });
-
-      if (response.statusCode == 200) {
-        // Handle successful login
-        setState(() {
-          fstate = "logged in";
-        });
-      } else {
-        // Handle unsuccessful login
-        setState(() {
-          fstate = "not logged in";
-        });
-      }
-    } catch (e) {
-      // Handle any exceptions
-      print('Exception during login: $e');
-      setState(() {
-        fstate = "error";
-      });
-    }
+    // http.get();
   }
 
   Widget _buildSubmitBtn() {
@@ -143,17 +93,20 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Container(
-      margin: const EdgeInsets.all(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(fstate),
-          _buildForm(),
-        ],
-      ),
-    ));
+    return Scaffold(
+      appBar: AppBar(title: Text('Login')),
+      body: SingleChildScrollView(
+          child: Container(
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(fstate),
+            _buildForm(),
+          ],
+        ),
+      )),
+    );
   }
 }
