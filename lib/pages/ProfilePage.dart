@@ -19,17 +19,72 @@ class _ProfileState extends State<Profile> {
 
   Future<void> _handleRefresh() async {
     print('Refresh');
-    // setState(() {
-    // books.removeAt(0);
-    // });
-    // fetchData();
-    // return null;
   }
 
-  List ran = List.generate(100, (index) => Text(index.toString()));
+  Widget _buidNameSecion() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Name",
+          style: labelStyle(),
+        ),
+        Text(
+          "John Doe",
+          style: valueStyle(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buidEmailSecion() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Email",
+          style: labelStyle(),
+        ),
+        Text(
+          "JohnDoe@gmail.com",
+          style: valueStyle(),
+        )
+      ],
+    );
+  }
+
+  Widget _buildAvatar() {
+    return Center(
+      child: CircleAvatar(
+        radius: 80,
+        child: Image.network(
+          'https://avatar.iran.liara.run/public/1',
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogoutBtn() {
+    void _handleLogout() {}
+    return ElevatedButton.icon(
+        onPressed: _handleLogout,
+        icon: Icon(Icons.logout),
+        label: Text("Logout"));
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget _buildLoginBtn() {
+      void _handleLogin() {
+        Navigator.pushNamed(context, '/login');
+      }
+
+      return ElevatedButton.icon(
+          onPressed: _handleLogin,
+          icon: Icon(Icons.logout),
+          label: Text("Login"));
+    }
+
     return RefreshIndicator(
       onRefresh: _handleRefresh,
       child: Scaffold(
@@ -41,38 +96,16 @@ class _ProfileState extends State<Profile> {
             margin: const EdgeInsets.all(20),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Center(
-                child: CircleAvatar(
-                  radius: 80,
-                  child: Image.network(
-                    'https://avatar.iran.liara.run/public/1',
-                  ),
-                ),
-              ),
-              Text(
-                "Name",
-                style: labelStyle(),
-              ),
-              Text(
-                "John Doe",
-                style: valueStyle(),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                "Email",
-                style: labelStyle(),
-              ),
-              Text(
-                "JohnDoe@gmail.com",
-                style: valueStyle(),
-              ),
-              ...ran
+              _buildAvatar(),
+              _buidNameSecion(),
+              const SizedBox(height: 30),
+              _buidEmailSecion(),
+              const SizedBox(height: 30),
+              _buildLoginBtn(),
+              _buildLogoutBtn()
             ]),
           ),
         ),
-        // bottomNavigationBar: Nav(),
       ),
     );
   }

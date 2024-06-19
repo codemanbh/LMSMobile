@@ -31,7 +31,8 @@ class _NavState extends State<Nav> {
     return NavigationBar(
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile')
+          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+          NavigationDestination(icon: Icon(Icons.history), label: 'History')
         ],
         selectedIndex: widget.pageIndex,
         onDestinationSelected: (i) => {widget.setPageIndex(i)});
