@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,6 @@ class _ReservePageState extends State<ReservePage> {
             content: Center(
                 child: Text(
               "Book reserved successfully !",
-              style: TextStyle(color: Theme.of(context).colorScheme.primary),
             )),
             backgroundColor: Color.fromARGB(255, 29, 208, 38),
             showCloseIcon: true,
@@ -69,7 +68,7 @@ class _ReservePageState extends State<ReservePage> {
             elevation: 20,
             behavior: SnackBarBehavior.floating,
             // animation:AnimatedOpacity(opacity: 1, duration: Duration(seconds: 1)),
-            // dismissDirection: DismissDirection.horizontal,
+            dismissDirection: DismissDirection.horizontal,
             margin: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)))

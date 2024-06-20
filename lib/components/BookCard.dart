@@ -33,39 +33,37 @@ class _BookCardState extends State<BookCard> {
     );
   }
 
-  Widget LeftSection() {
+  Widget RightSection() {
     TextStyle titleStyle() {
       return const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
     }
 
     return Flexible(
-      child: Expanded(
-        child: Container(
-          // constraints: BoxConstraints.expand(),
-          // color: Colors.red,
-          // height: double.infinity,
-          margin: const EdgeInsets.all(10),
-          // color: Colors.red,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.book.title,
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: titleStyle(),
-              ),
-              Text(
-                widget.book.description,
-                maxLines: 3,
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-              ),
-              IconButton(onPressed: goToBook, icon: const Icon(Icons.book))
-            ],
-          ),
+      child: Container(
+        // constraints: BoxConstraints.expand(),
+        // color: Colors.red,
+        // height: double.infinity,
+        margin: const EdgeInsets.all(10),
+        // color: Colors.red,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.book.title,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: titleStyle(),
+            ),
+            Text(
+              widget.book.description,
+              maxLines: 3,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+            ),
+            IconButton(onPressed: goToBook, icon: const Icon(Icons.book))
+          ],
         ),
       ),
     );
@@ -81,7 +79,7 @@ class _BookCardState extends State<BookCard> {
           padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Img(), LeftSection()],
+            children: [Img(), RightSection()],
           ),
         ),
       ),
