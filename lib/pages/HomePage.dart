@@ -32,15 +32,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  Widget loud() {
-    return Center(
-      child: SpinKitRotatingCircle(
-        color: Colors.white,
-        size: 50.0,
-      ),
-    );
-  }
-
   @override
   void initState() {
     super.initState();
@@ -90,6 +81,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    Widget loud() {
+      return Center(
+        child: SpinKitDoubleBounce(
+          color: Theme.of(context).colorScheme.secondary,
+          size: 50.0,
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Books'),

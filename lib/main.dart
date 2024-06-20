@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
+import 'context/ThemeProvider.dart';
 // Classes
 // Pages
 
@@ -13,7 +14,8 @@ import 'components/Pages.dart';
 import 'context/Theme.dart';
 
 void main() {
-  runApp(App());
+  runApp(ChangeNotifierProvider(
+      create: (context) => ThemeProvider(), child: App()));
 }
 
 class App extends StatefulWidget {
@@ -42,12 +44,14 @@ class _AppState extends State<App> {
       );
     }
 
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: _buildAppScaffold(),
-        routes: routes,
-        themeMode: ThemeMode.dark,
-        darkTheme: darkTheme(),
-        theme: lightTheme());
+    return Consumer(
+        builder: (context, data, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: _buildAppScaffold(),
+            routes: routes,
+            themeMode: Provider.of<ThemeProvider>(context).currentTheme,
+            //
+            darkTheme: darkTheme(),
+            theme: lightTheme()));
   }
 }

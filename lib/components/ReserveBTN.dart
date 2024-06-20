@@ -8,7 +8,8 @@ class ReserveBTN extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void _goToReservePage() {
-      print('attempting to navigate');
+      // print('attempting to navigate');
+
       Navigator.pushNamed(context, '/reserve', arguments: {'book': book});
     }
 

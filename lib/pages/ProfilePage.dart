@@ -1,6 +1,11 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:library_managment_system_mobile/context/ThemeProvider.dart';
+import 'package:provider/provider.dart';
 import '../components/Nav.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../context/Theme.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -82,32 +87,55 @@ class _ProfileState extends State<Profile> {
 
       return ElevatedButton.icon(
           onPressed: _handleLogin,
-          icon: Icon(Icons.logout),
-          label: Text("Login"));
+          icon: const Icon(Icons.switch_account_sharp),
+          label: const Text("Switch account"));
     }
 
-    return RefreshIndicator(
-      onRefresh: _handleRefresh,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Profile"),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.all(20),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              _buildAvatar(),
-              _buidNameSecion(),
-              const SizedBox(height: 30),
-              _buidEmailSecion(),
-              const SizedBox(height: 30),
-              _buildLoginBtn(),
-              _buildLogoutBtn()
-            ]),
-          ),
-        ),
-      ),
-    );
+    Widget Toggle() {
+      bool? change(bool x) {
+        Provider.of<ThemeProvider>(context, listen: false).toggleThemeMode();
+        return true;
+        // _toggleThemeMode();
+      }
+
+      return Row(
+        children: [
+          Text("Dark mode: "),
+          Switch(
+              value: Provider.of<ThemeProvider>(context).isDarkMode,
+              onChanged: change),
+          // Provider.of<ThemeProvider>(context, listen: false).isDarkMode
+          //     ? Icon(Icons.dark_mode_rounded)
+          //     : Icon(Icons.light_mode)
+        ],
+      );
+    }
+
+    return Consumer<ThemeProvider>(
+        builder: (context, data, child) => RefreshIndicator(
+              onRefresh: _handleRefresh,
+              child: Scaffold(
+                appBar: AppBar(
+                  title: const Text("Profile"),
+                ),
+                body: SingleChildScrollView(
+                  child: Container(
+                    margin: const EdgeInsets.all(20),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildAvatar(),
+                          _buidNameSecion(),
+                          const SizedBox(height: 30),
+                          _buidEmailSecion(),
+                          const SizedBox(height: 30),
+                          _buildLoginBtn(),
+                          _buildLogoutBtn(),
+                          Toggle()
+                        ]),
+                  ),
+                ),
+              ),
+            ));
   }
 }

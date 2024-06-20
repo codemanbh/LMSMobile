@@ -1,4 +1,9 @@
+import 'dart:js';
+
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ReservePage extends StatefulWidget {
   const ReservePage({super.key});
@@ -14,14 +19,14 @@ class _ReservePageState extends State<ReservePage> {
         ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>? ??
             {};
     DateTime today = DateTime.now();
-    DateTime minDate = today.add(Duration(days: 3));
-    DateTime midDate = today.add(Duration(days: 30));
-    DateTime maxDate = today.add(Duration(days: 60));
+    DateTime minDate = today.add(const Duration(days: 3));
+    DateTime midDate = today.add(const Duration(days: 30));
+    DateTime maxDate = today.add(const Duration(days: 60));
     DateTime? dueDate = midDate;
 
     Widget _buildSelectDateButton() {
       void handeDateSelection() async {
-        print('reserve');
+        // print('reserve');
         dueDate = await showDatePicker(
             context: context,
             initialDate: midDate,
@@ -50,10 +55,31 @@ class _ReservePageState extends State<ReservePage> {
     }
 
     Widget _buildConfirmBTN() {
-      void _send() {}
+      void _send() {
+        // Scaffold.of(context).;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Center(
+                child: Text(
+              "Book reserved successfully !",
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            )),
+            backgroundColor: Color.fromARGB(255, 29, 208, 38),
+            showCloseIcon: true,
+            // width: 300.0,
+            elevation: 20,
+            behavior: SnackBarBehavior.floating,
+            // animation:AnimatedOpacity(opacity: 1, duration: Duration(seconds: 1)),
+            // dismissDirection: DismissDirection.horizontal,
+            margin: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)))
+            // width: 200,
+            // clipBehavior: Clip.antiAlias(),
+            ));
+      }
+
       return ElevatedButton.icon(
-        
-          onPressed: _send, icon: Icon(Icons.check), label: Text('Confirm'));
+          onPressed: _send, icon: Icon(Icons.check), label: Text('Confirm2'));
     }
 
     return Scaffold(
