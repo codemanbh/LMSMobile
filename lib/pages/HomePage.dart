@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../components/BookCard.dart';
@@ -6,6 +7,8 @@ import '../classes/Book.dart';
 import '../server/serverInfo.dart';
 import '../components/Nav.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../components/CategoriesSelection.dart';
+import '../components/BooksAppBar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,9 +20,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List books = [];
 
-  void fetchData() async {
+  void fetchData(String urlLink) async {
+    print(urlLink);
     try {
-      var url = Uri.parse('$SERVER_LINK/api/books');
+      var url = Uri.parse(urlLink);
       var response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -35,7 +39,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchData('$SERVER_LINK/api/books');
   }
 
   Widget bookList() {
@@ -54,29 +58,13 @@ class _HomeState extends State<Home> {
     return SizedBox(
       width: double.infinity,
       child: Column(
-        // backgroundColor:Colors.red,
         children: mapBookList(),
       ),
     );
   }
 
-  Widget loudButton() {
-    return TextButton(
-      child: const Text("Loud Books"),
-      onPressed: () {
-        fetchData();
-        // print(books);
-      },
-    );
-  }
-
   Future<void> _handleRefresh() async {
-    print('Refresh');
-    // setState(() {
-    // books.removeAt(0);
-    // });
-    fetchData();
-    // return null;
+    fetchData('$SERVER_LINK/api/books');
   }
 
   @override
@@ -90,37 +78,28 @@ class _HomeState extends State<Home> {
       );
     }
 
+    void p() {}
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Books'),
-      ),
-      body: books.isEmpty
-          ? loud()
-          : RefreshIndicator(
-              onRefresh: _handleRefresh,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    bookList(),
-                  ],
+      // appBar: BooksAppBar(),
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (context, innerBoxIsScrolled) =>
+            [BooksAppBar(fetchData: fetchData)],
+        body: Container(
+          child: books.isEmpty
+              ? loud()
+              : RefreshIndicator(
+                  onRefresh: _handleRefresh,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        bookList(),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
+        ),
+      ),
     );
-
-    // Scaffold(
-    //   appBar: AppBar(
-    //     title: Text("Books"),
-    //   ),
-    //   // bottomNavigationBar: Nav(),
-    //   body: SingleChildScrollView(
-    //     child: Column(
-    //       children: [
-    //         books.isEmpty ? const Text('asfasd') : bookList(),
-    //         loudButton()
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
