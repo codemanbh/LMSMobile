@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:library_managment_system_mobile/server/serverInfo.dart';
 import '../classes/Book.dart';
 import '../pages/BookPage.dart';
@@ -12,24 +13,25 @@ class BookCard extends StatefulWidget {
 }
 
 class _BookCardState extends State<BookCard> {
-  void goToBook() {
-    print('Hello');
+  // final GlobalKey _key = GlobalKey();
 
-    // Navigator.push(
-    //     context, (MaterialPageRoute(builder: (context) => const BookPage())));
+  void goToBook() {
     Navigator.pushNamed(context, '/book', arguments: {'book': widget.book});
   }
 
   // String server = "http://127.0.0.1:8000/storage/"; // remove later
 
   Widget Img() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.network("${SERVER_LINK}/storage/${widget.book.image_url}",
-          width: 150,
-          // height: 200,
+    return Expanded(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network("${SERVER_LINK}/storage/${widget.book.image_url}",
+            width: 150,
 
-          fit: BoxFit.cover),
+            // height: 200,
+
+            fit: BoxFit.cover),
+      ),
     );
   }
 
@@ -38,32 +40,43 @@ class _BookCardState extends State<BookCard> {
       return const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
     }
 
-    return Flexible(
+    Widget title() {
+      return Text(
+        widget.book.title,
+        softWrap: true,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+        style: titleStyle(),
+      );
+    }
+
+    Widget description() {
+      return Text(
+        widget.book.description,
+        maxLines: 4,
+        softWrap: true,
+        overflow: TextOverflow.ellipsis,
+      );
+    }
+
+    Widget detailBtn() {
+      return IconButton(onPressed: goToBook, icon: const Icon(Icons.book));
+    }
+
+    return
+        // Flexible(
+        // child:
+        Expanded(
+      flex: 2,
       child: Container(
-        // constraints: BoxConstraints.expand(),
-        // color: Colors.red,
-        // height: double.infinity,
-        margin: const EdgeInsets.all(10),
-        // color: Colors.red,
+        margin: EdgeInsets.all(12),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.book.title,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: titleStyle(),
-            ),
-            Text(
-              widget.book.description,
-              maxLines: 3,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-            ),
-            IconButton(onPressed: goToBook, icon: const Icon(Icons.book))
-          ],
+          children: [title(), description(), detailBtn()],
+          // ),
         ),
       ),
     );
@@ -72,15 +85,11 @@ class _BookCardState extends State<BookCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: Card(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Img(), RightSection()],
-          ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [Img(), RightSection()],
         ),
       ),
     );
