@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
 
   String _email = "";
   String _password = "";
-  String fstate = "not logged in";
+  String fstate = "";
 
   Widget _buildEmail() {
     return TextFormField(
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: Text('Add Account')),
       body: SingleChildScrollView(
           child: Container(
         margin: const EdgeInsets.all(10),
