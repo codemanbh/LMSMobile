@@ -13,51 +13,74 @@ class ReservePage extends StatefulWidget {
 }
 
 class _ReservePageState extends State<ReservePage> {
+  String dueDateString = "";
+
+  @override
+  void initState() {
+    super.initState();
+    DateTime midDate = DateTime.now().add(const Duration(days: 30));
+    dueDateString = "Due date: ${midDate.day}/${midDate.month}/${midDate.year}";
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map<dynamic, dynamic> data =
         ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>? ??
             {};
+
     DateTime today = DateTime.now();
     DateTime minDate = today.add(const Duration(days: 3));
     DateTime midDate = today.add(const Duration(days: 30));
     DateTime maxDate = today.add(const Duration(days: 60));
     DateTime? dueDate = midDate;
+    DateTime? tempDate = midDate;
+
+    void convertDateToString() {
+      setState(() {
+        dueDateString =
+            "Due date: ${dueDate?.day}/${dueDate?.month}/${dueDate?.year}";
+      });
+    }
 
     Widget _buildSelectDateButton() {
       void handeDateSelection() async {
         // print('reserve');
-        dueDate = await showDatePicker(
+        tempDate = await showDatePicker(
             context: context,
             initialDate: midDate,
             firstDate: minDate,
             lastDate: maxDate);
+        setState(() {
+          dueDate = tempDate;
+        });
+        convertDateToString();
+        print(dueDate);
       }
 
       return ElevatedButton(
-          onPressed: handeDateSelection, child: Text("Change due date"));
+          onPressed: handeDateSelection, child: const Text("Change due date"));
     }
 
     Widget _buildBookTitle() {
       return Text(
         data['book'].title,
-        style: TextStyle(fontSize: 30),
+        style: const TextStyle(fontSize: 30),
       );
     }
 
     Widget _buidDueDate() {
-      String dateString =
-          "Due date: ${dueDate?.day}/${dueDate?.month}/${dueDate?.year}";
+      // String dateString = dueDate.;
+      //     ;
       return Text(
-        dateString,
-        style: TextStyle(fontSize: 26),
+        dueDateString,
+        style: const TextStyle(fontSize: 26),
       );
     }
 
     Widget _buildConfirmBTN() {
       void _send() {
         // Scaffold.of(context).;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Center(
                 child: Text(
               "Book reserved successfully !",
@@ -78,22 +101,24 @@ class _ReservePageState extends State<ReservePage> {
       }
 
       return ElevatedButton.icon(
-          onPressed: _send, icon: Icon(Icons.check), label: Text('Confirm2'));
+          onPressed: _send,
+          icon: const Icon(Icons.check),
+          label: const Text('Confirm Reservation'));
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text("Reserve")),
+      appBar: AppBar(title: const Text("Reserve Book")),
       body: Container(
           // color: Colors.red,
-          constraints: BoxConstraints.expand(),
-          padding: EdgeInsets.all(10),
+          constraints: const BoxConstraints.expand(),
+          padding: const EdgeInsets.all(10),
           child: Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildBookTitle(),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 _buidDueDate(),
